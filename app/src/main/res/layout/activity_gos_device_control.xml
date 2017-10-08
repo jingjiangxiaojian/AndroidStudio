@@ -16,7 +16,231 @@
         
 		
 		<!-- onoff(布尔可写) -->
-		 <RelativeLayout
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal">
+
+			<TableLayout
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="match_parent">
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_centerVertical="true"
+						android:text="温度" />
+
+					<TextView
+						android:id="@+id/tv_data_temperature"
+						android:layout_width="110dp"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:gravity="end"
+						android:textSize="16sp"
+						android:textColor="@color/gray" />
+
+				</TableRow>
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:text="湿度" />
+
+				<TextView
+					android:id="@+id/tv_data_humidity"
+					android:layout_width="110dp"
+					android:layout_height="match_parent"
+					android:layout_alignParentRight="true"
+					android:layout_centerVertical="true"
+					android:gravity="end"
+					android:textSize="16sp"
+					android:textColor="@color/gray" />
+				</TableRow>
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:text="voc" />
+
+					<TextView
+						android:id="@+id/tv_data_voc"
+						android:layout_width="110dp"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:textSize="16sp"
+						android:gravity="end" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/tv_data_voc"
+						android:layout_marginTop="10dp"
+						android:gravity="center_vertical"
+						android:orientation="horizontal" >
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textSize="16sp"
+							android:text="0" />
+
+						<SeekBar
+							android:id="@+id/sb_data_voc"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="3"
+							android:max="1000" />
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textSize="16sp"
+							android:text="1000" />
+					</LinearLayout>
+
+				</TableRow>
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:text="PM25" />
+
+				<TextView
+					android:id="@+id/tv_data_PM25"
+					android:layout_width="110dp"
+					android:layout_height="match_parent"
+					android:layout_alignParentRight="true"
+					android:layout_centerVertical="true"
+					android:gravity="end"
+					android:textSize="16sp"
+					android:textColor="@color/gray" />
+				</TableRow>
+			</TableLayout>
+
+			<TableLayout
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="match_parent">
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:text="排风" />
+
+
+				<Spinner
+					android:id="@+id/sp_enum_exhaust"
+					android:layout_width="110dp"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:entries="@array/enum_exhaust" />
+				</TableRow>
+
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:text="送风" />
+
+
+				<Spinner
+					android:id="@+id/sp_enum_supply"
+					android:layout_width="110dp"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:entries="@array/enum_supply" />
+				</TableRow>
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_centerVertical="true"
+						android:text="定时" />
+
+					</TableRow>
+
+				<TableRow
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:text="滤网" />
+
+				<Switch
+					android:id="@+id/sw_bool_filterTag"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_alignParentRight="true"
+					android:layout_centerVertical="true"
+					android:textOff="关闭"
+					android:textOn="开启" />
+				</TableRow>
+			</TableLayout>
+		</LinearLayout>
+
+		<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="1dp"
@@ -67,30 +291,7 @@
 		</RelativeLayout>	
 	
 		
-		<!-- filterTag(布尔可写) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
 
-			 <TextView
-				 android:layout_width="wrap_content"
-				 android:layout_height="match_parent"
-				 android:layout_centerVertical="true"
-				 android:text="滤网" />
-
-				<Switch
-					android:id="@+id/sw_bool_filterTag"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_alignParentRight="true"
-					android:layout_centerVertical="true"
-					android:textOff="关闭"
-					android:textOn="开启" />
-					
-		</RelativeLayout>	
 	
 		
 		<!-- lock(布尔可写) -->
@@ -126,12 +327,12 @@
 				android:layout_marginBottom="1dp"
 				android:background="@color/white"
 				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="valve" />
+
+			 <TextView
+				 android:layout_width="wrap_content"
+				 android:layout_height="match_parent"
+				 android:layout_centerVertical="true"
+				 android:text="风阀" />
 
 				<Switch
 					android:id="@+id/sw_bool_valve"
@@ -145,182 +346,20 @@
 		</RelativeLayout>	
 	
 		
-		<!-- supply(枚举可写) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="supply" />
 
 
-				<Spinner
-					android:id="@+id/sp_enum_supply"
-					android:layout_width="110dp"
-					android:layout_height="wrap_content"
-					android:layout_alignParentRight="true"
-					android:entries="@array/enum_supply" />				
-		</RelativeLayout>		
-	
-		
-		<!-- exhaust(枚举可写) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="exhaust" />
-
-
-				<Spinner
-					android:id="@+id/sp_enum_exhaust"
-					android:layout_width="110dp"
-					android:layout_height="wrap_content"
-					android:layout_alignParentRight="true"
-					android:entries="@array/enum_exhaust" />				
-		</RelativeLayout>		
 	
 		
 		<!-- temperature(数值只读) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="temperature" />
 
-				<TextView
-					android:id="@+id/tv_data_temperature"
-					android:layout_width="110dp"
-					android:layout_height="match_parent"
-					android:layout_alignParentRight="true"
-					android:layout_centerVertical="true"
-					android:gravity="end"
-					android:textSize="16sp"
-					android:textColor="@color/gray" />	
-		</RelativeLayout>
+		
+
 	
 		
-		<!-- humidity(数值只读) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="humidity" />
 
-				<TextView
-					android:id="@+id/tv_data_humidity"
-					android:layout_width="110dp"
-					android:layout_height="match_parent"
-					android:layout_alignParentRight="true"
-					android:layout_centerVertical="true"
-					android:gravity="end"
-					android:textSize="16sp"
-					android:textColor="@color/gray" />	
-		</RelativeLayout>
 	
 		
-		<!-- PM25(数值只读) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="PM25" />
 
-				<TextView
-					android:id="@+id/tv_data_PM25"
-					android:layout_width="110dp"
-					android:layout_height="match_parent"
-					android:layout_alignParentRight="true"
-					android:layout_centerVertical="true"
-					android:gravity="end"
-					android:textSize="16sp"
-					android:textColor="@color/gray" />	
-		</RelativeLayout>
-	
-		
-		<!-- voc(数值可写) -->
-		 <RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="1dp"
-				android:background="@color/white"
-				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:text="voc" />
-				
-				<TextView
-					android:id="@+id/tv_data_voc"
-					android:layout_width="110dp"
-					android:layout_height="wrap_content"
-					android:layout_alignParentRight="true"
-					android:textSize="16sp"
-					android:gravity="end" />	
-									
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_below="@+id/tv_data_voc"
-					android:layout_marginTop="10dp"
-					android:gravity="center_vertical"
-					android:orientation="horizontal" >
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textSize="16sp"
-						android:text="0" />
-						
-					<SeekBar
-						android:id="@+id/sb_data_voc"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="3"
-						android:max="1000" />
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textSize="16sp"
-						android:text="1000" />
-				</LinearLayout>
-			
-		</RelativeLayout>			
 	
 	
     </LinearLayout>
