@@ -6,23 +6,23 @@ import com.gizwits.opensource.appkit.CommonModule.GosBaseActivity;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class GosAboutActivity extends GosBaseActivity {
+public class GosAboutActivity extends GosBaseActivity implements View.OnClickListener {
 
-	/** The tv SDKVersion. */
-	TextView tv_SDKVersion;
 
 	/** the tv appCode */
 	TextView tv_AppVersion;
 
-	/** The ActionBar */
-	ActionBar actionBar;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +39,20 @@ public class GosAboutActivity extends GosBaseActivity {
 	 * Inits the view.
 	 */
 	private void initView() {
-		tv_SDKVersion = (TextView) findViewById(R.id.versionCode);
+
 		tv_AppVersion = (TextView) findViewById(R.id.appCode);
+		findViewById(R.id.ll_1).setOnClickListener(this);
+		findViewById(R.id.ll_2).setOnClickListener(this);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		tv_SDKVersion.setText(GizWifiSDK.sharedInstance().getVersion().toString());
+
 		tv_AppVersion.setText(getAppVersionName(this));
+
+
+
 	}
 
 	/**
@@ -79,4 +84,19 @@ public class GosAboutActivity extends GosBaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent(GosAboutActivity.this, About1Activity.class);
+		switch (v.getId()){
+			case R.id.ll_1:
+
+				startActivity(intent);
+				break;
+			case R.id.ll_2:
+
+				startActivity(intent);
+				break;
+
+		}
+	}
 }

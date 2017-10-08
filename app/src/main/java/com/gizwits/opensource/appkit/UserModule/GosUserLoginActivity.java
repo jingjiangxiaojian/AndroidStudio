@@ -106,7 +106,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 	/** The THRED_LOGIN UID&TOKEN */
 	public static String thirdUid, thirdToken;
 
-	public enum handler_key {
+	public static enum handler_key {
 
 		/** 登录 */
 		LOGIN,
@@ -146,7 +146,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 				break;
 
 			}
-		}
+		};
 
 	};
 
@@ -174,10 +174,8 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 
 		// 设置actionBar
 		setActionBar(false, false, R.string.app_company);
-		intent = new Intent(GosUserLoginActivity.this, GosMainActivity.class);
-		startActivity(intent);
-
-		logoutToClean();
+		initView();
+		initEvent();
 	}
 
 
@@ -197,7 +195,9 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 
 		if (isclean) {
 			etName.setText("");
+			;
 			etPsw.setText("");
+			;
 		}
 	}
 
@@ -435,7 +435,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		}
 
 		Log.i("Apptest", "UnBind:" + result.toString());
-	}
+	};
 
 	/**
 	 * 菜单、返回键响应

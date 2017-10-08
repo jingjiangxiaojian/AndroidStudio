@@ -105,6 +105,10 @@ public class GosDeploy {
 	/** The NavigationBarColor Key */
 	private static final String NavigationBarColor_Key = "navigationBarColor";
 
+	/** The NavigationBarColor Key */
+	private static final String BottomNavigationBarColor_Key = "bottomnavigationBarColor";
+
+
 	/** The NavigationBarTextColor Key */
 	private static final String NavigationBarTextColor_Key = "navigationBarTextColor";
 
@@ -447,6 +451,27 @@ public class GosDeploy {
 
 		return drawable;
 	}
+
+	/**
+	 * 设置导航栏背景颜色
+	 *
+	 * @return
+	 */
+	public static Drawable setBottomNavigationBarColor() {
+		GradientDrawable drawable = new GradientDrawable();
+		drawable.setShape(GradientDrawable.RECTANGLE);
+
+		int navigationBarColor = context.getResources().getColor(R.color.yellow);
+
+		String BottomNavigationBarColor_FromMap = infoMap.get(BottomNavigationBarColor_Key).toString();
+		if (!TextUtils.isEmpty(BottomNavigationBarColor_FromMap)) {
+			navigationBarColor = Color.parseColor("#" + BottomNavigationBarColor_FromMap);
+		}
+		drawable.setColor(navigationBarColor);
+
+		return drawable;
+	}
+
 
 	/**
 	 * 设置导航栏文字颜色

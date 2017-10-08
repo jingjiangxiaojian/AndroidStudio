@@ -23,12 +23,11 @@ public class GosSettiingsActivity extends GosBaseActivity implements OnClickList
 	/** The Intent */
 	Intent intent;
 
-	private LinearLayout usermanager;
+	private LinearLayout feedback;
 
-	private LinearLayout lllogin;
+	private LinearLayout llquit;
 
-	private TextView phoneusername;
-	private LinearLayout deviceshared;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,38 +44,21 @@ public class GosSettiingsActivity extends GosBaseActivity implements OnClickList
 	private void initView() {
 		llAbout = (LinearLayout) findViewById(R.id.llAbout);
 
-		usermanager = (LinearLayout) findViewById(R.id.usermanager);
+		feedback = (LinearLayout) findViewById(R.id.opinion_feedback);
 
-		lllogin = (LinearLayout) findViewById(R.id.lllogin);
+		llquit = (LinearLayout) findViewById(R.id.llQuit);
 
-		deviceshared = (LinearLayout) findViewById(R.id.deviceshared);
 
-		phoneusername = (TextView) findViewById(R.id.phoneusername);
 
-		if (!TextUtils.isEmpty(spf.getString("UserName", "")) && !TextUtils.isEmpty(spf.getString("PassWord", ""))) {
-			usermanager.setVisibility(View.VISIBLE);
 
-			lllogin.setVisibility(View.GONE);
-			phoneusername.setText(spf.getString("UserName", ""));
-		} else if (TextUtils.isEmpty(spf.getString("UserName", "")) && TextUtils.isEmpty(spf.getString("PassWord", ""))
-				&& !TextUtils.isEmpty(spf.getString("thirdUid", ""))) {
-
-			usermanager.setVisibility(View.VISIBLE);
-			String uid = spf.getString("thirdUid", "");
-
-			lllogin.setVisibility(View.GONE);
-			String myuid = uid.substring(0, 2) + "***" + uid.substring(uid.length() - 4, uid.length());
-			phoneusername.setText(myuid);
-		} else {
-			usermanager.setVisibility(View.GONE);
-			lllogin.setVisibility(View.VISIBLE);
-		}
 	}
 
 	private void initEvent() {
 		llAbout.setOnClickListener(this);
-		usermanager.setOnClickListener(this);
-		lllogin.setOnClickListener(this);
+
+
+		feedback.setOnClickListener(this);
+		llquit.setOnClickListener(this);
 	}
 
 	@Override
@@ -94,22 +76,12 @@ public class GosSettiingsActivity extends GosBaseActivity implements OnClickList
 			}, 1000);
 			break;
 
-		case R.id.usermanager:
-			intent = new Intent(GosSettiingsActivity.this, GosUserManager.class);
-			startActivityForResult(intent, SETTINGS);
-
-			usermanager.setEnabled(false);
-			usermanager.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					usermanager.setEnabled(true);
-				}
-			}, 1000);
+		case R.id.opinion_feedback:
 
 			break;
 
-		case R.id.lllogin:
-			setResult(SETTINGS);
+		case R.id.llQuit:
+
 			finish();
 			break;
 
@@ -129,28 +101,6 @@ public class GosSettiingsActivity extends GosBaseActivity implements OnClickList
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == 234) {
-			setResult(SETTINGS);
-			finish();
-		}
-	}
 
-	// 设备共享
-	public void deviceshared(View v) {
 
-		Intent deviceshared1 = new Intent(this, SharedDeviceListAcitivity.class);
-
-		startActivity(deviceshared1);
-
-		deviceshared.setEnabled(false);
-		deviceshared.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				deviceshared.setEnabled(true);
-			}
-		}, 1000);
-
-	}
 }

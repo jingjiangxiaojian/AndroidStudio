@@ -27,7 +27,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
 					android:layout_centerVertical="true"
-					android:text="onoff" />
+					android:text="开关" />
 
 				<Switch
 					android:id="@+id/sw_bool_onoff"
@@ -48,12 +48,12 @@
 				android:layout_marginBottom="1dp"
 				android:background="@color/white"
 				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="auto" />
+
+			 <TextView
+				 android:layout_width="wrap_content"
+				 android:layout_height="match_parent"
+				 android:layout_centerVertical="true"
+				 android:text="自动模式" />
 
 				<Switch
 					android:id="@+id/sw_bool_auto"
@@ -74,12 +74,12 @@
 				android:layout_marginBottom="1dp"
 				android:background="@color/white"
 				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="filterTag" />
+
+			 <TextView
+				 android:layout_width="wrap_content"
+				 android:layout_height="match_parent"
+				 android:layout_centerVertical="true"
+				 android:text="滤网" />
 
 				<Switch
 					android:id="@+id/sw_bool_filterTag"
@@ -100,12 +100,12 @@
 				android:layout_marginBottom="1dp"
 				android:background="@color/white"
 				android:padding="10dp" >
-		 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_centerVertical="true"
-					android:text="lock" />
+
+			 <TextView
+				 android:layout_width="wrap_content"
+				 android:layout_height="match_parent"
+				 android:layout_centerVertical="true"
+				 android:text="童锁" />
 
 				<Switch
 					android:id="@+id/sw_bool_lock"

@@ -2,13 +2,36 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
+
+
+
+
+
+
+
+
+
+
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
+
+
+
+
+
+
+
+
+
+
+
         -->
     </style>
 
@@ -16,7 +39,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:actionBarStyle">@style/my_actionbar_style</item>
         <item name="android:actionOverflowButtonStyle">@style/OverFlow</item>
-        <item name="android:windowIsTranslucent">true</item> 
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:typeface">sans</item>
          <item name="android:actionMenuTextAppearance">@style/MyMenuTextStyle</item>  
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
@@ -72,7 +95,13 @@
         <item name="android:layout_marginRight">40dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginBottom">20dp</item>
-    </style>
+    </style>
+
+
+
+
+
+
     -->
  
     <style name="LinearlayoutStyle">
@@ -105,5 +134,10 @@
         <item name="android:textColor">@android:color/black</item>
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

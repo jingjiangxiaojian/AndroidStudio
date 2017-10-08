@@ -15,7 +15,7 @@
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="50.0dip"
-        android:background="#F8DC26" >
+        android:background="#e6e6e6">
 
         <LinearLayout
             android:id="@+id/text1"
@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img1"
@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img3"

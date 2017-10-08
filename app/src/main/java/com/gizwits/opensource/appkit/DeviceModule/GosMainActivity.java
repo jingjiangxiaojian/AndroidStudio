@@ -72,7 +72,7 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 
 	private int viewPagerSelected = 0;
 	private Intent intent;
-	private messageCenterActivity center;
+
 
 	public static Activity instance = null;
 	private ImageView img1;
@@ -84,8 +84,6 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 	private static final  int REQUEST_CODE_SETTING = 100;
 
 	private static final  int REQUEST_ZXINGCODE_SETTING = 200;
-
-	GosPushManager gosPushManager;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -120,7 +118,7 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 	@SuppressWarnings("deprecation")
 	private void initHandler() {
 		activity = (GosDeviceListActivity) manager.getActivity("A");
-		center = (messageCenterActivity) manager.getActivity("B");
+
 		myHandler = activity.getMyHandler();
 	}
 
@@ -135,7 +133,7 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 			break;
 
 		case 1:
-			center.onResume();
+
 			break;
 
 		default:
@@ -197,7 +195,7 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 
 		img3.setBackgroundResource(R.drawable.user_grey);
 
-		tx1.setTextColor(getResources().getColor(R.color.black));
+		tx1.setTextColor(getResources().getColor(R.color.yellow));
 
 		tx3.setTextColor(getResources().getColor(R.color.gray));
 		setActionBar(false, false, R.string.devicelist_title);
@@ -225,7 +223,7 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 		
 		myll.setVisibility(GosDeploy.setUsingTabSetOn());
 		
-		myll.setBackgroundDrawable(GosDeploy.setNavigationBarColor());
+		myll.setBackgroundDrawable(GosDeploy.setBottomNavigationBarColor());
 	}
 
 	@Override
@@ -375,17 +373,14 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 				setActionBar(false, false, R.string.devicelist_title);
 				activity.onResume();
 				break;
-			case 1:
 
+
+			case 1:
 				activity.onPause();
 				if (currIndex == 0) {
-					animation = new TranslateAnimation(offset, two, 0, 0);
+					animation = new TranslateAnimation(offset, one, 0, 0);
 				}
 				setActionBar(false, false, R.string.personal_center);
-				break;
-
-			case 2:
-
 				break;
 			}
 			currIndex = arg0;
@@ -430,15 +425,17 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 
 				img3.setBackgroundResource(R.drawable.user_grey);
 
-				tx1.setTextColor(getResources().getColor(R.color.black));
+				tx1.setTextColor(getResources().getColor(R.color.yellow));
 
 				tx3.setTextColor(getResources().getColor(R.color.gray));
 				break;
 
+
+
 			case 1:
 				// t1.setBackgroundColor(getResources().getColor(R.color.white));
-				// t2.setBackgroundColor(getResources().getColor(R.color.gray));
-				// t3.setBackgroundColor(getResources().getColor(R.color.white));
+				// t2.setBackgroundColor(getResources().getColor(R.color.white));
+				// t3.setBackgroundColor(getResources().getColor(R.color.gray));
 
 				img1.setBackgroundResource(R.drawable.grid_grey);
 
@@ -446,10 +443,8 @@ public class GosMainActivity extends GosDeviceModuleBaseActivity {
 
 				tx1.setTextColor(getResources().getColor(R.color.gray));
 
-				tx3.setTextColor(getResources().getColor(R.color.black));
+				tx3.setTextColor(getResources().getColor(R.color.yellow));
 				break;
-
-
 
 			default:
 				break;
