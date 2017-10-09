@@ -18,7 +18,9 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -43,11 +45,11 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 	/** 设备列表传入的设备变量 */
 	private GizWifiDevice mDevice;
 
-	private Switch sw_bool_onoff;
-	private Switch sw_bool_auto;
+	private CheckBox sw_bool_onoff;
+	private CheckBox sw_bool_auto;
 	private Switch sw_bool_filterTag;
-	private Switch sw_bool_lock;
-	private Switch sw_bool_valve;
+	private CheckBox sw_bool_lock;
+	private CheckBox sw_bool_valve;
 	private Spinner sp_enum_supply;
 	private Spinner sp_enum_exhaust;
 	private TextView tv_data_temperature;
@@ -103,11 +105,11 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 
 	private void initView() {
 		
-		sw_bool_onoff = (Switch) findViewById(R.id.sw_bool_onoff);
-		sw_bool_auto = (Switch) findViewById(R.id.sw_bool_auto);
+		sw_bool_onoff = (CheckBox) findViewById(R.id.sw_bool_onoff);
+		sw_bool_auto = (CheckBox) findViewById(R.id.sw_bool_auto);
 		sw_bool_filterTag = (Switch) findViewById(R.id.sw_bool_filterTag);
-		sw_bool_lock = (Switch) findViewById(R.id.sw_bool_lock);
-		sw_bool_valve = (Switch) findViewById(R.id.sw_bool_valve);
+		sw_bool_lock = (CheckBox) findViewById(R.id.sw_bool_lock);
+		sw_bool_valve = (CheckBox) findViewById(R.id.sw_bool_valve);
 		sp_enum_supply = (Spinner) findViewById(R.id.sp_enum_supply);
 		sp_enum_exhaust = (Spinner) findViewById(R.id.sp_enum_exhaust);
 		tv_data_temperature = (TextView) findViewById(R.id.tv_data_temperature);
