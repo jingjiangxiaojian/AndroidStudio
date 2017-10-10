@@ -305,9 +305,13 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay" />
+        <activity android:name=".SettingsModule.About1Activity" />
         <activity
-            android:name=".SettingsModule.About1Activity"
-            ></activity>
+            android:name=".ControlModule.MoreSettingActivity"
+            android:label="@string/title_activity_more_setting" />
+        <activity
+            android:name=".ControlModule.SchedulerActivity"
+            android:label="@string/title_activity_scheduler"></activity>
     </application>
 
 </manifest>

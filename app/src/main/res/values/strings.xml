@@ -91,4 +91,6 @@
     </string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_activity_about1">About1Activity</string>
+    <string name="title_activity_more_setting">MoreSettingActivity</string>
+    <string name="title_activity_scheduler">SchedulerActivity</string>
 </resources>

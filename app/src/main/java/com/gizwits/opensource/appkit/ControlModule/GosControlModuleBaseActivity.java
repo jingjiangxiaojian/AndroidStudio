@@ -46,6 +46,9 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"voc"对应的标识名
 	protected static final String KEY_VOC = "voc";
 
+	// 数据点"alerttest"对应的标识名
+	protected static final String KEY_ALERTTEST = "alerttest";
+
 	/*
 	 * ===========================================================
 	 * 以下数值对应开发者在云端定义的可写数值型数据点增量值、数据点定义的分辨率、seekbar滚动条补偿值
@@ -63,7 +66,15 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	protected static final int VOC_ADDITION = 0;
 	// 数据点"voc"对应数据点定义的分辨率
 	protected static final int VOC_RATIO = 1;
-		
+
+
+	// 数据点"pm"对应seekbar滚动条补偿值
+	protected static final int PM_OFFSET = 0;
+	// 数据点"pm"对应数据点增量值
+	protected static final int PM_ADDITION = 0;
+	// 数据点"pm"对应数据点定义的分辨率
+	protected static final int PM_RATIO = 1;
+
 
 	/*
 	 * ===========================================================
@@ -75,7 +86,7 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"auto"对应的存储数据
 	protected static boolean data_auto;
 	// 数据点"filterTag"对应的存储数据
-	protected static boolean data_filterTag;
+	protected static int data_filterTag;
 	// 数据点"lock"对应的存储数据
 	protected static boolean data_lock;
 	// 数据点"valve"对应的存储数据
@@ -92,6 +103,9 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	protected static int data_PM25;
 	// 数据点"voc"对应的存储数据
 	protected static int data_voc;
+
+	// 数据点"alerttest"对应的存储数据
+	protected static boolean data_alerttest;
 
 	/*
 	 * ===========================================================
@@ -122,7 +136,7 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 					data_auto = (Boolean) map.get(dataKey);			
 				}
 				if (dataKey.equals(KEY_FILTERTAG)) {
-					data_filterTag = (Boolean) map.get(dataKey);			
+					data_filterTag = (Integer) map.get(dataKey);
 				}
 				if (dataKey.equals(KEY_LOCK)) {
 					data_lock = (Boolean) map.get(dataKey);			
@@ -151,6 +165,9 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 				if (dataKey.equals(KEY_VOC)) {
 			
 					data_voc = (Integer) map.get(dataKey);
+				}
+				if (dataKey.equals(KEY_ALERTTEST)) {
+					data_alerttest = (Boolean) map.get(dataKey);
 				}
 			}
 		}

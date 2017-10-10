@@ -144,82 +144,98 @@
 			<TableLayout
 				android:layout_width="0dp"
 				android:layout_weight="1"
-				android:stretchColumns="1"
+				android:stretchColumns="1,2"
 				android:layout_height="match_parent">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white"
-                    android:padding="10dp">
+				<TableRow
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/link_exhaust"
-                        android:gravity="center"
-                        android:text="排风" />
+					android:id="@+id/tr_exhaust"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp">
 
-                    <ImageView
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:drawableLeft="@drawable/link_exhaust"
+						android:gravity="center"
+						android:text="排风" />
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/button_more" />
+					<ImageView
+						android:id="@+id/iv_exhaust"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						app:srcCompat="@drawable/nowind" />
+
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:padding="8dp"
+						android:src="@mipmap/button_more" />
 
 
-                </TableRow>
+				</TableRow>
 
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white"
-                    android:padding="10dp">
+				<TableRow
+					android:id="@+id/tr_supply"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/link_blowin"
-                        android:gravity="center"
-                        android:text="送风" />
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:drawableLeft="@drawable/link_blowin"
+						android:gravity="center"
+						android:text="送风" />
 
-                    <ImageView
+					<ImageView
+						android:id="@+id/iv_supply"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						app:srcCompat="@drawable/nowind" />
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="false"
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:adjustViewBounds="false"
+						android:padding="8dp"
 
-                        android:src="@mipmap/button_more" />
+						android:src="@mipmap/button_more" />
 
-                </TableRow>
+				</TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white"
-                    android:padding="10dp">
+				<TableRow
+					android:id="@+id/tr_scheduler"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="1dp"
+					android:background="@color/white"
+					android:padding="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/link_time"
-                        android:gravity="center"
-                        android:text="定时" />
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:drawableLeft="@drawable/link_time"
+						android:gravity="center"
+						android:text="定时" />
 
-                    <ImageView
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:adjustViewBounds="false"
+						android:padding="8dp"
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="false"
-
-                        android:src="@mipmap/button_more" />
-                </TableRow>
+						android:src="@mipmap/button_more" />
+				</TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -236,14 +252,16 @@
                         android:gravity="center"
                         android:text="滤网" />
 
-                    <ImageView
+					<TextView
+						android:id="@+id/sd_data_filter"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:gravity="center"
+						android:maxLines="1"
+						android:textColor="@color/yellow"
+						android:textSize="16sp" />
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="false"
-
-                        android:src="@mipmap/button_more" />
-                </TableRow>
+				</TableRow>
 			</TableLayout>
 		</LinearLayout>
 
@@ -256,32 +274,34 @@
 
 			<CheckBox
 				android:id="@+id/sw_bool_onoff"
-				android:layout_width="120dp"
-				android:layout_height="120dp"
+				android:layout_width="30dp"
+				android:layout_height="30dp"
 
-				android:layout_centerHorizontal="true"
-				android:layout_centerVertical="true"
+				android:layout_toLeftOf="@+id/sw_bool_auto"
+				android:layout_toRightOf="@+id/sw_bool_valve"
+				android:layout_toStartOf="@+id/sw_bool_auto"
 				android:background="@drawable/btn_close"
 				android:button="@null"
 				android:gravity="center_horizontal"
-				android:scaleType="fitXY" />
+				android:scaleType="fitXY"
+				android:layout_below="@+id/sw_bool_lock"
+				android:layout_above="@+id/sw_set" />
 
 			<CheckBox
 				android:id="@+id/sw_bool_auto"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_alignParentEnd="true"
-				android:layout_alignParentRight="true"
-				android:layout_centerVertical="true"
-				android:layout_toEndOf="@+id/sw_bool_onoff"
-				android:layout_toRightOf="@+id/sw_bool_onoff"
 				android:button="@null"
 				android:text="模式"
 				android:gravity="center_horizontal"
 
 				android:textColor="@drawable/text_selector"
 
-				android:drawableTop="@drawable/btn_auto" />
+				android:drawableTop="@drawable/btn_auto"
+				android:layout_alignBaseline="@+id/sw_bool_valve"
+				android:layout_alignBottom="@+id/sw_bool_valve"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentEnd="true" />
 
 			<CheckBox
 				android:id="@+id/sw_bool_valve"
@@ -290,19 +310,16 @@
 				android:text="风阀"
 				android:button="@null"
 				android:drawableTop="@drawable/btn_valve"
-				android:layout_centerVertical="true"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true"
 				android:gravity="center_horizontal|bottom"
 				android:textColor="@drawable/text_selector"
-				android:layout_toLeftOf="@+id/sw_bool_onoff"
-				android:layout_toStartOf="@+id/sw_bool_onoff" />
+				android:layout_centerVertical="true"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentStart="true" />
 
 			<CheckBox
 				android:id="@+id/sw_bool_lock"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_above="@+id/sw_bool_onoff"
 				android:layout_alignParentTop="true"
 				android:layout_centerHorizontal="true"
 				android:button="@null"
@@ -316,69 +333,17 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:button="@null"
-				android:layout_centerHorizontal="true"
 				android:drawableTop="@drawable/btn_set"
 				android:text="设置"
 				android:gravity="center_horizontal"
 				android:textColor="@drawable/text_selector"
-				android:layout_below="@+id/sw_bool_onoff"
-				android:layout_alignParentBottom="@+id/sw_bool_lock"
-			  />
+				android:layout_alignParentBottom="true"
+				android:layout_alignLeft="@+id/sw_bool_lock"
+				android:layout_alignStart="@+id/sw_bool_lock" />
 		</RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
 
-                android:text="0"
-                android:textSize="16sp" />
-            <SeekBar
-                android:id="@+id/sb_data_voc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:max="1000" />
-
-            <Switch
-                android:id="@+id/sw_bool_filterTag"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="3"
-                android:textOff="关闭"
-                android:textOn="开启" />
-
-            <Spinner
-                android:id="@+id/sp_enum_supply"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_weight="3"
-                android:entries="@array/enum_supply" />
-
-            <Spinner
-                android:id="@+id/sp_enum_exhaust"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_weight="3"
-                android:entries="@array/enum_exhaust" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-
-        <!-- auto(布尔可写) -->
+		<!-- auto(布尔可写) -->
 
 
 		<!-- lock(布尔可写) -->

@@ -10,53 +10,58 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.gizwits.opensource.appkit.R;
-import com.gizwits.opensource.appkit.utils.HexStrUtils;
-import com.gizwits.opensource.appkit.view.HexWatcher;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GosDeviceControlActivity extends GosControlModuleBaseActivity
-		implements OnClickListener, OnEditorActionListener, OnSeekBarChangeListener {
+		implements OnClickListener, OnEditorActionListener {
 
 	/** 设备列表传入的设备变量 */
 	private GizWifiDevice mDevice;
 
 	private CheckBox sw_bool_onoff;
 	private CheckBox sw_bool_auto;
-	private Switch sw_bool_filterTag;
+	private TextView sw_bool_filterTag;
 	private CheckBox sw_bool_lock;
 	private CheckBox sw_bool_valve;
-	private Spinner sp_enum_supply;
-	private Spinner sp_enum_exhaust;
+	private ImageView iv_supply;
+	private ImageView iv_exhaust;
 	private TextView tv_data_temperature;
 	private TextView tv_data_humidity;
 	private TextView tv_data_PM25;
 	private TextView tv_data_voc;
-	private SeekBar sb_data_voc;
+
+
+	private View tr_supply,tr_exhaust;
+
+	private int[] resIds=new int[]{R.drawable.nowind,R.drawable.low_wind,R.drawable.secondarywind,R.drawable.highwind};
 
 	private enum handler_key {
 
@@ -107,59 +112,43 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		
 		sw_bool_onoff = (CheckBox) findViewById(R.id.sw_bool_onoff);
 		sw_bool_auto = (CheckBox) findViewById(R.id.sw_bool_auto);
-		sw_bool_filterTag = (Switch) findViewById(R.id.sw_bool_filterTag);
+		sw_bool_filterTag = (TextView) findViewById(R.id.sd_data_filter);
 		sw_bool_lock = (CheckBox) findViewById(R.id.sw_bool_lock);
 		sw_bool_valve = (CheckBox) findViewById(R.id.sw_bool_valve);
-		sp_enum_supply = (Spinner) findViewById(R.id.sp_enum_supply);
-		sp_enum_exhaust = (Spinner) findViewById(R.id.sp_enum_exhaust);
+		iv_supply = (ImageView) findViewById(R.id.iv_supply);
+		iv_exhaust = (ImageView) findViewById(R.id.iv_exhaust);
 		tv_data_temperature = (TextView) findViewById(R.id.tv_data_temperature);
 		tv_data_humidity = (TextView) findViewById(R.id.tv_data_humidity);
 		tv_data_PM25 = (TextView) findViewById(R.id.tv_data_PM25);
 		tv_data_voc = (TextView) findViewById(R.id.tv_data_voc);
-		sb_data_voc = (SeekBar) findViewById(R.id.sb_data_voc);
+
+		tr_exhaust=findViewById(R.id.tr_exhaust);
+		tr_supply=findViewById(R.id.tr_supply);
 	}
 
 	private void initEvent() {
 
 		sw_bool_onoff.setOnClickListener(this);
 		sw_bool_auto.setOnClickListener(this);
-		sw_bool_filterTag.setOnClickListener(this);
+		//sw_bool_filterTag.setOnClickListener(this);
 		sw_bool_lock.setOnClickListener(this);
 		sw_bool_valve.setOnClickListener(this);
-		sp_enum_supply.setSelection(0, false);
-		sp_enum_supply.setOnItemSelectedListener(new OnItemSelectedListener() {
+		setSupplySelection(0);
+		setExhaustSelection(0);
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-				if (position != data_supply) {
-					sendCommand(KEY_SUPPLY, position);
-					data_supply = position;
-				}
-			}
+		tr_exhaust.setOnClickListener(this);
+		tr_supply.setOnClickListener(this);
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
-		sp_enum_exhaust.setSelection(0, false);
-		sp_enum_exhaust.setOnItemSelectedListener(new OnItemSelectedListener() {
+		findViewById(R.id.sw_set).setOnClickListener(this);
+		findViewById(R.id.tr_scheduler).setOnClickListener(this);
+	}
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-				if (position != data_exhaust) {
-					sendCommand(KEY_EXHAUST, position);
-					data_exhaust = position;
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
-		sb_data_voc.setOnSeekBarChangeListener(this);
-	
+	private void setSupplySelection(int position){
+		iv_supply.setImageResource(resIds[position]);
+	}
+	private void setExhaustSelection(int position){
+		iv_exhaust.setImageResource(resIds[position]);
 	}
 
 	private void initDevice() {
@@ -200,25 +189,56 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		case R.id.sw_bool_auto:
 			sendCommand(KEY_AUTO, sw_bool_auto.isChecked());
 			break;
-		case R.id.sw_bool_filterTag:
-			sendCommand(KEY_FILTERTAG, sw_bool_filterTag.isChecked());
-			break;
+
 		case R.id.sw_bool_lock:
 			sendCommand(KEY_LOCK, sw_bool_lock.isChecked());
 			break;
 		case R.id.sw_bool_valve:
 			sendCommand(KEY_VALVE, sw_bool_valve.isChecked());
 			break;
+			case R.id.tr_supply:
+				 setSupply(1);
+				break;
+			case R.id.tr_exhaust:
+				setSupply(2);
+				break;
+			case R.id.sw_set:
+				Intent it=	new Intent(GosDeviceControlActivity.this,MoreSettingActivity.class);
+				it.putExtra("voc",data_voc);
+				it.putExtra("pm",data_PM25);
+				startActivityForResult(it,100);
+				break;
+			case  R.id.tr_scheduler:
+				Intent it1=	new Intent(GosDeviceControlActivity.this,SchedulerActivity.class);
+
+				startActivityForResult(it1,101);
+				break;
 		default:
 			break;
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode==100&&resultCode==RESULT_OK){
+			int vocprogress=data.getIntExtra("voc",0);
+			tv_data_voc.setText(formatValue((vocprogress + VOC_OFFSET) * VOC_RATIO + VOC_ADDITION, 1));
+			sendCommand(KEY_VOC, (vocprogress + VOC_OFFSET ) * VOC_RATIO + VOC_ADDITION);
+
+			int pmprogress=data.getIntExtra("pm",0);
+			tv_data_PM25.setText(formatValue((pmprogress + PM_OFFSET) * PM_RATIO + PM_ADDITION, 1));
+			sendCommand(KEY_PM25, (pmprogress + PM_OFFSET ) * PM_RATIO + PM_ADDITION);
+		}
+
+
+	}
+
 	/*
-	 * ========================================================================
-	 * EditText 点击键盘“完成”按钮方法
-	 * ========================================================================
-	 */
+         * ========================================================================
+         * EditText 点击键盘“完成”按钮方法
+         * ========================================================================
+         */
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
@@ -231,38 +251,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 
 	}
 	
-	/*
-	 * ========================================================================
-	 * seekbar 回调方法重写
-	 * ========================================================================
-	 */
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		
-		switch (seekBar.getId()) {
-		case R.id.sb_data_voc:
-			tv_data_voc.setText(formatValue((progress + VOC_OFFSET) * VOC_RATIO + VOC_ADDITION, 1));
-			break;
-		default:
-			break;
-		}
-	}
 
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
-
-	}
-
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		switch (seekBar.getId()) {
-		case R.id.sb_data_voc:
-			sendCommand(KEY_VOC, (seekBar.getProgress() + VOC_OFFSET ) * VOC_RATIO + VOC_ADDITION);
-			break;
-		default:
-			break;
-		}
-	}
 
 	/*
 	 * ========================================================================
@@ -309,16 +298,18 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		
 		sw_bool_onoff.setChecked(data_onoff);
 		sw_bool_auto.setChecked(data_auto);
-		sw_bool_filterTag.setChecked(data_filterTag);
+		sw_bool_filterTag.setText(data_filterTag+"天");
 		sw_bool_lock.setChecked(data_lock);
 		sw_bool_valve.setChecked(data_valve);
-		sp_enum_supply.setSelection(data_supply, true);
-		sp_enum_exhaust.setSelection(data_exhaust, true);
+
+		setSupplySelection(data_supply);
+		setExhaustSelection(data_exhaust);
+
 		tv_data_temperature.setText(data_temperature+"");
 		tv_data_humidity.setText(data_humidity+"");
 		tv_data_PM25.setText(data_PM25+"");
 		tv_data_voc.setText(data_voc+"");
-		sb_data_voc.setProgress((int)((data_voc - VOC_ADDITION) / VOC_RATIO - VOC_OFFSET));
+
 	
 	}
 
@@ -460,7 +451,73 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 			}
 		});
 	}
-	
+
+
+	private void setSupply(final int type){
+		List<Map<String, Object>> lstImageItem =  new ArrayList<>();
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("itemImage", R.drawable.nowind);//添加图像资源的ID
+		map.put("itemText", "无风");//按序号做ItemText
+		lstImageItem.add(map);
+
+		map = new HashMap<String, Object>();
+		map.put("itemImage", R.drawable.low_wind);//添加图像资源的ID
+		map.put("itemText", "低风");//按序号做ItemText
+		lstImageItem.add(map);
+
+		map = new HashMap<String, Object>();
+		map.put("itemImage", R.drawable.secondarywind);//添加图像资源的ID
+		map.put("itemText", "中风");//按序号做ItemText
+		lstImageItem.add(map);
+
+		map = new HashMap<String, Object>();
+		map.put("itemImage", R.drawable.highwind);//添加图像资源的ID
+		map.put("itemText", "高风");//按序号做ItemText
+		lstImageItem.add(map);
+
+
+
+
+		SimpleAdapter saImageItems =  new SimpleAdapter(this, lstImageItem,R.layout.layout_simple_list,  new String[]{"itemImage", "itemText"},
+				new int[]{R.id.image, R.id.text});
+
+		AlertDialog dialog = new AlertDialog.Builder(this)
+
+						.setAdapter(saImageItems, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int position) {
+
+								switch (type){
+									case 1:
+										if (position != data_supply) {
+											sendCommand(KEY_SUPPLY, position);
+											data_supply = position;
+											setSupplySelection(position);
+										}
+										break;
+									case 2:
+										if (position != data_exhaust) {
+											sendCommand(KEY_EXHAUST, position);
+											data_exhaust = position;
+											setExhaustSelection(position);
+										}
+										break;
+								}
+
+							}
+						})
+					.setNegativeButton("取消", null)
+						.create();
+
+		Window window = dialog.getWindow();
+		window.setGravity(Gravity.BOTTOM);  //此处可以设置dialog显示的位置
+		window.getAttributes().width= ViewGroup.LayoutParams.MATCH_PARENT;
+		//window.setWindowAnimations(R.style.mystyle);  //添加动画
+		dialog.show();
+
+
+	}
 	/*
 	 * 获取设备硬件信息回调
 	 */

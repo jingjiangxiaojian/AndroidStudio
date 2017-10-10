@@ -22,9 +22,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.3.0'
     compile files('libs/BLEasyConfig.jar')
     compile files('libs/easylink2.0.jar')
     compile files('libs/hiflying-iots-android-smartlink7.0.2.jar')
@@ -42,5 +39,9 @@ dependencies {
     compile files('libs/simpleconfigwizardlib.jar')
     compile files('libs/xUtils-2.6.14.jar')
     compile files('libs/zxing.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.3.0'
     compile 'com.yanzhenjie:permission:1.0.5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }
