@@ -1,11 +1,14 @@
 package com.gizwits.opensource.appkit.ControlModule;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.gizwits.gizwifisdk.api.GizDeviceScheduler;
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.gizwits.gizwifisdk.listener.GizDeviceSchedulerCenterListener;
 import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 import com.gizwits.opensource.appkit.CommonModule.GosBaseActivity;
 import com.gizwits.opensource.appkit.utils.HexStrUtils;
@@ -237,6 +240,22 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 
 	};
 
+
+	GizDeviceSchedulerCenterListener mListener = new GizDeviceSchedulerCenterListener() {
+		@Override
+		public void didUpdateSchedulers(GizWifiErrorCode result, GizWifiDevice schedulerOwner, List<GizDeviceScheduler> schedulerList) {
+			if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
+				// 定时任务创建成功
+				myToast("成功");
+				Log.d("schedulerList",schedulerList.toString());
+			} else {
+				// 创建失败
+			}
+		}
+
+
+
+	};
 	/**
 	 * 设备订阅回调
 	 * 

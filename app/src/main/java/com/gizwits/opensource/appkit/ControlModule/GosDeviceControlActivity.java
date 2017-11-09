@@ -18,17 +18,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.gizwits.gizwifisdk.api.GizDeviceScheduler;
+import com.gizwits.gizwifisdk.api.GizDeviceSchedulerCenter;
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
@@ -62,6 +65,9 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 	private View tr_supply,tr_exhaust;
 
 	private int[] resIds=new int[]{R.drawable.nowind,R.drawable.low_wind,R.drawable.secondarywind,R.drawable.highwind};
+
+	RotateAnimation animation1,animation2;
+
 
 	private enum handler_key {
 
@@ -124,6 +130,24 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 
 		tr_exhaust=findViewById(R.id.tr_exhaust);
 		tr_supply=findViewById(R.id.tr_supply);
+
+		animation1 =new RotateAnimation(0f,359f, Animation.RELATIVE_TO_SELF,
+				0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+		animation1.setDuration(500);//设置动画持续时间
+		/** 常用方法 */
+		animation1.setRepeatCount(-1);//设置重复次数
+		LinearInterpolator interpolator = new LinearInterpolator();  //设置匀速旋转，在xml文件中设置会出现卡顿
+		animation1.setInterpolator(interpolator);
+
+		animation2 =new RotateAnimation(0f,359f, Animation.RELATIVE_TO_SELF,
+				0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+		animation2.setDuration(500);//设置动画持续时间
+		/** 常用方法 */
+		animation2.setRepeatCount(-1);//设置重复次数
+		animation2.setInterpolator(new LinearInterpolator());
+
+		iv_supply.setAnimation(animation1);
+		iv_exhaust.setAnimation(animation2);
 	}
 
 	private void initEvent() {
@@ -142,13 +166,26 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 
 		findViewById(R.id.sw_set).setOnClickListener(this);
 		findViewById(R.id.tr_scheduler).setOnClickListener(this);
-	}
+
+
+
+
+
+			}
 
 	private void setSupplySelection(int position){
 		iv_supply.setImageResource(resIds[position]);
+		if(position==0)
+			iv_supply.getAnimation().cancel();
+		else
+			iv_supply.getAnimation().startNow();
 	}
 	private void setExhaustSelection(int position){
 		iv_exhaust.setImageResource(resIds[position]);
+		if(position==0)
+			iv_exhaust.getAnimation().cancel();
+		else
+			iv_exhaust.getAnimation().startNow();
 	}
 
 	private void initDevice() {
@@ -209,9 +246,11 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 				startActivityForResult(it,100);
 				break;
 			case  R.id.tr_scheduler:
-				Intent it1=	new Intent(GosDeviceControlActivity.this,SchedulerActivity.class);
-
-				startActivityForResult(it1,101);
+				getSchedulerList();
+			//	sendSchedulerCommand();
+//				Intent it1=	new Intent(GosDeviceControlActivity.this,SchedulerActivity.class);
+//
+//				startActivityForResult(it1,101);
 				break;
 		default:
 			break;
@@ -310,7 +349,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		tv_data_PM25.setText(data_PM25+"");
 		tv_data_voc.setText(data_voc+"");
 
-	
+
 	}
 
 	private void setEditText(EditText et, Object value) {
@@ -365,6 +404,32 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		// hashMap.put(key3, value3);
 		mDevice.write(hashMap, sn);
 		Log.i("liang", "下发命令：" + hashMap.toString());
+	}
+
+	private void sendSchedulerCommand(){
+		// 设置定时任务监听
+
+// 一次性定时任务，在2017年1月16日早上6点30分开灯
+		GizDeviceScheduler scheduler = new GizDeviceScheduler();
+		scheduler.setDate("2017-10-23");
+		scheduler.setTime("11:30");
+		scheduler.setRemark("开机任务");
+		ConcurrentHashMap<String, Object> attrs = new ConcurrentHashMap<String, Object>();
+		attrs.put(KEY_ONOFF, true);
+		scheduler.setAttrs(attrs);
+// 创建设备的定时任务，mDevice为在设备列表中得到的设备对象
+
+		GizDeviceSchedulerCenter.createScheduler(spf.getString("Uid",""), spf.getString("Token",""), mDevice, scheduler);
+
+		GizDeviceSchedulerCenter.setListener(mListener);
+	}
+
+	private void getSchedulerList(){
+		// 设置定时任务监听
+		GizDeviceSchedulerCenter.setListener(mListener);
+// 同步更新设备的定时任务列表，mDevice为在设备列表中得到的设备对象
+		GizDeviceSchedulerCenter.updateSchedulers(spf.getString("Uid",""), spf.getString("Token",""), mDevice);
+// 实现回调
 	}
 
 	private boolean isDeviceCanBeControlled() {
