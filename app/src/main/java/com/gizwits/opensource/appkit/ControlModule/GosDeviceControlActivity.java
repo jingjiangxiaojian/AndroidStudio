@@ -337,7 +337,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		
 		sw_bool_onoff.setChecked(data_onoff);
 		sw_bool_auto.setChecked(data_auto);
-		sw_bool_filterTag.setText(data_filterTag+"天");
+		sw_bool_filterTag.setText(data_filterTag?"开":"关");
 		sw_bool_lock.setChecked(data_lock);
 		sw_bool_valve.setChecked(data_valve);
 

@@ -189,6 +189,11 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		autoLogin();
 
 		cleanuserthing();
+
+		intent = new Intent(GosUserLoginActivity.this, GosMainActivity.class);
+		startActivity(intent);
+
+		logoutToClean();
 	}
 
 	private void cleanuserthing() {

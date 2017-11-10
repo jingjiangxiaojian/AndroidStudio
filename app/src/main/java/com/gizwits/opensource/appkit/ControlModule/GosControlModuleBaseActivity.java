@@ -27,7 +27,7 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	 * ===========================================================
 	 */
 	// 数据点"onoff"对应的标识名
-	protected static final String KEY_ONOFF = "onoff";
+	protected static final String KEY_ONOFF = "openclose";
 	// 数据点"auto"对应的标识名
 	protected static final String KEY_AUTO = "auto";
 	// 数据点"filterTag"对应的标识名
@@ -35,11 +35,11 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"lock"对应的标识名
 	protected static final String KEY_LOCK = "lock";
 	// 数据点"valve"对应的标识名
-	protected static final String KEY_VALVE = "valve";
+	protected static final String KEY_VALVE = "door";
 	// 数据点"supply"对应的标识名
-	protected static final String KEY_SUPPLY = "supply";
+	protected static final String KEY_SUPPLY = "send";
 	// 数据点"exhaust"对应的标识名
-	protected static final String KEY_EXHAUST = "exhaust";
+	protected static final String KEY_EXHAUST = "remove";
 	// 数据点"temperature"对应的标识名
 	protected static final String KEY_TEMPERATURE = "temperature";
 	// 数据点"humidity"对应的标识名
@@ -89,7 +89,7 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"auto"对应的存储数据
 	protected static boolean data_auto;
 	// 数据点"filterTag"对应的存储数据
-	protected static int data_filterTag;
+	protected static boolean data_filterTag;
 	// 数据点"lock"对应的存储数据
 	protected static boolean data_lock;
 	// 数据点"valve"对应的存储数据
@@ -139,7 +139,7 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 					data_auto = (Boolean) map.get(dataKey);			
 				}
 				if (dataKey.equals(KEY_FILTERTAG)) {
-					data_filterTag = (Integer) map.get(dataKey);
+					data_filterTag = (Boolean) map.get(dataKey);
 				}
 				if (dataKey.equals(KEY_LOCK)) {
 					data_lock = (Boolean) map.get(dataKey);			
