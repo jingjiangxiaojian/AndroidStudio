@@ -13,6 +13,7 @@ import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 import com.gizwits.opensource.appkit.CommonModule.GosBaseActivity;
 import com.gizwits.opensource.appkit.utils.HexStrUtils;
 
+import android.content.Intent;
 import android.util.Log;
 import android.content.Context;
 import android.view.MenuItem;
@@ -49,7 +50,23 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"voc"对应的标识名
 	protected static final String KEY_VOC = "voc";
 
-	// 数据点"alerttest"对应的标识名
+
+
+    protected static final String KEY_PM25SET = "PM25Set";
+
+    protected static final String KEY_VOCSHOW = "VOCShow";
+
+    protected static final String KEY_CLOCKCLOSETAG = "clockclosetag";
+
+    protected static final String KEY_CLOCKOPENTAG = "clockopentag";
+
+    protected static final String KEY_CLOCKOPENTIME = "clockopentime";
+
+    protected static final String KEY_CLOCKCHOSETIME = "clockclosetime";
+
+
+
+    // 数据点"alerttest"对应的标识名
 	protected static final String KEY_ALERTTEST = "alerttest";
 
 	/*
@@ -70,8 +87,16 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"voc"对应数据点定义的分辨率
 	protected static final int VOC_RATIO = 1;
 
+    // 数据点"vocshow"对应seekbar滚动条补偿值
+    protected static final int VOCSHOW_OFFSET = 0;
+    // 数据点"vocshow"对应数据点增量值
+    protected static final int VOCSHOW_ADDITION = 0;
+    // 数据点"vocshow"对应数据点定义的分辨率
+    protected static final int VOCSHOW_RATIO = 1;
 
-	// 数据点"pm"对应seekbar滚动条补偿值
+
+
+    // 数据点"pm"对应seekbar滚动条补偿值
 	protected static final int PM_OFFSET = 0;
 	// 数据点"pm"对应数据点增量值
 	protected static final int PM_ADDITION = 0;
@@ -79,7 +104,17 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	protected static final int PM_RATIO = 1;
 
 
-	/*
+    // 数据点"pmset"对应seekbar滚动条补偿值
+    protected static final int PMSET_OFFSET = 0;
+    // 数据点"pmset"对应数据点增量值
+    protected static final int PMSET_ADDITION = 0;
+    // 数据点"pmset"对应数据点定义的分辨率
+    protected static final int PMSET_RATIO = 1;
+
+
+
+
+    /*
 	 * ===========================================================
 	 * 以下变量对应设备上报类型为布尔、数值、扩展数据点的数据存储
 	 * ===========================================================
@@ -110,6 +145,18 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	// 数据点"alerttest"对应的存储数据
 	protected static boolean data_alerttest;
 
+    // 数据点"clockclosetag"对应的存储数据
+    protected static boolean data_clockclosetag;
+    // 数据点"clockopentag"对应的存储数据
+    protected static boolean data_clockopentag;
+    // 数据点"clockopentime"对应的存储数据
+    protected static byte[] data_clockopentime;
+    // 数据点"clockclosetime"对应的存储数据
+    protected static byte[] data_clockclosetime;
+    // 数据点"设置PM2.5"对应的存储数据
+    protected static int data_PM25Set;
+    // 数据点"VOC显示值"对应的存储数据
+    protected static int data_VOCShow;
 	/*
 	 * ===========================================================
 	 * 以下key值对应设备硬件信息各明细的名称，用与回调中提取硬件信息字段。
@@ -241,21 +288,7 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	};
 
 
-	GizDeviceSchedulerCenterListener mListener = new GizDeviceSchedulerCenterListener() {
-		@Override
-		public void didUpdateSchedulers(GizWifiErrorCode result, GizWifiDevice schedulerOwner, List<GizDeviceScheduler> schedulerList) {
-			if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
-				// 定时任务创建成功
-				myToast("成功");
-				Log.d("schedulerList",schedulerList.toString());
-			} else {
-				// 创建失败
-			}
-		}
 
-
-
-	};
 	/**
 	 * 设备订阅回调
 	 * 

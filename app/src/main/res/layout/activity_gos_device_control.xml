@@ -252,95 +252,97 @@
                         android:gravity="center"
                         android:text="滤网" />
 
-					<TextView
+					<CheckBox
 						android:id="@+id/sd_data_filter"
 						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
+						android:layout_height="wrap_content"
+						android:button="@null"
 						android:gravity="center"
 						android:maxLines="1"
+						android:text="关"
 						android:textColor="@color/yellow"
 						android:textSize="16sp" />
+
+
 
 				</TableRow>
 			</TableLayout>
 		</LinearLayout>
 
-		<RelativeLayout
-			android:layout_width="250dp"
-			android:layout_height="250dp"
-			android:layout_gravity="center_horizontal"
-			android:background="@drawable/shape_oval"
-			 >
+        <RelativeLayout
+            android:id="@+id/rl_container"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_oval">
 
-			<CheckBox
-				android:id="@+id/sw_bool_onoff"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
+            <CheckBox
+                android:id="@+id/sw_bool_onoff"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
 
-				android:layout_toLeftOf="@+id/sw_bool_auto"
-				android:layout_toRightOf="@+id/sw_bool_valve"
-				android:layout_toStartOf="@+id/sw_bool_auto"
-				android:background="@drawable/btn_close"
-				android:button="@null"
-				android:gravity="center_horizontal"
-				android:scaleType="fitXY"
-				android:layout_below="@+id/sw_bool_lock"
-				android:layout_above="@+id/sw_set" />
 
-			<CheckBox
-				android:id="@+id/sw_bool_auto"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:button="@null"
-				android:text="模式"
-				android:gravity="center_horizontal"
+                android:layout_centerInParent="true"
 
-				android:textColor="@drawable/text_selector"
+                android:background="@drawable/btn_close"
+                android:button="@null"
 
-				android:drawableTop="@drawable/btn_auto"
-				android:layout_alignBaseline="@+id/sw_bool_valve"
-				android:layout_alignBottom="@+id/sw_bool_valve"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true" />
+                android:scaleType="fitXY" />
 
-			<CheckBox
-				android:id="@+id/sw_bool_valve"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="风阀"
-				android:button="@null"
-				android:drawableTop="@drawable/btn_valve"
-				android:gravity="center_horizontal|bottom"
-				android:textColor="@drawable/text_selector"
-				android:layout_centerVertical="true"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true" />
+            <CheckBox
+                android:id="@+id/sw_bool_auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/sw_bool_valve"
+                android:layout_alignBottom="@+id/sw_bool_valve"
+                android:layout_alignParentEnd="true"
 
-			<CheckBox
-				android:id="@+id/sw_bool_lock"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentTop="true"
-				android:layout_centerHorizontal="true"
-				android:button="@null"
-				android:drawableTop="@drawable/btn_lock"
-				android:gravity="center_horizontal"
-				android:text="童锁"
-				android:textColor="@drawable/text_selector" />
+                android:layout_alignParentRight="true"
 
-			<CheckBox
-				android:id="@+id/sw_set"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:button="@null"
-				android:drawableTop="@drawable/btn_set"
-				android:text="设置"
-				android:gravity="center_horizontal"
-				android:textColor="@drawable/text_selector"
-				android:layout_alignParentBottom="true"
-				android:layout_alignLeft="@+id/sw_bool_lock"
-				android:layout_alignStart="@+id/sw_bool_lock" />
-		</RelativeLayout>
+                android:button="@null"
+                android:drawableTop="@drawable/btn_auto"
+                android:gravity="center_horizontal"
+                android:text="模式"
+                android:textColor="@drawable/text_selector" />
+
+            <CheckBox
+                android:id="@+id/sw_bool_valve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:button="@null"
+                android:drawableTop="@drawable/btn_valve"
+                android:gravity="center_horizontal|bottom"
+                android:text="风阀"
+                android:textColor="@drawable/text_selector" />
+
+            <CheckBox
+                android:id="@+id/sw_bool_lock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:button="@null"
+                android:drawableTop="@drawable/btn_lock"
+                android:gravity="center_horizontal"
+                android:text="童锁"
+                android:textColor="@drawable/text_selector" />
+
+            <CheckBox
+                android:id="@+id/sw_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/sw_bool_lock"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/sw_bool_lock"
+                android:button="@null"
+                android:drawableTop="@drawable/btn_set"
+                android:gravity="center_horizontal"
+                android:text="设置"
+                android:textColor="@drawable/text_selector" />
+        </RelativeLayout>
 
 
 		<!-- auto(布尔可写) -->

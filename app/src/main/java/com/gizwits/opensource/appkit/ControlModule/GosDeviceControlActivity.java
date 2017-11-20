@@ -2,6 +2,7 @@ package com.gizwits.opensource.appkit.ControlModule;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -18,13 +20,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -35,6 +40,7 @@ import com.gizwits.gizwifisdk.api.GizDeviceSchedulerCenter;
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.gizwits.gizwifisdk.listener.GizDeviceSchedulerCenterListener;
 import com.gizwits.opensource.appkit.R;
 
 import java.util.ArrayList;
@@ -51,7 +57,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 
 	private CheckBox sw_bool_onoff;
 	private CheckBox sw_bool_auto;
-	private TextView sw_bool_filterTag;
+	private CheckBox sw_bool_filterTag;
 	private CheckBox sw_bool_lock;
 	private CheckBox sw_bool_valve;
 	private ImageView iv_supply;
@@ -61,7 +67,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 	private TextView tv_data_PM25;
 	private TextView tv_data_voc;
 
-
+    private RelativeLayout  rl_container;
 	private View tr_supply,tr_exhaust;
 
 	private int[] resIds=new int[]{R.drawable.nowind,R.drawable.low_wind,R.drawable.secondarywind,R.drawable.highwind};
@@ -115,10 +121,11 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 	}
 
 	private void initView() {
-		
+        rl_container= (RelativeLayout) findViewById(R.id.rl_container);
+
 		sw_bool_onoff = (CheckBox) findViewById(R.id.sw_bool_onoff);
 		sw_bool_auto = (CheckBox) findViewById(R.id.sw_bool_auto);
-		sw_bool_filterTag = (TextView) findViewById(R.id.sd_data_filter);
+		sw_bool_filterTag = (CheckBox) findViewById(R.id.sd_data_filter);
 		sw_bool_lock = (CheckBox) findViewById(R.id.sw_bool_lock);
 		sw_bool_valve = (CheckBox) findViewById(R.id.sw_bool_valve);
 		iv_supply = (ImageView) findViewById(R.id.iv_supply);
@@ -148,6 +155,28 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 
 		iv_supply.setAnimation(animation1);
 		iv_exhaust.setAnimation(animation2);
+
+		WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+		DisplayMetrics dm = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(dm);
+		int width = dm.widthPixels;         // 屏幕宽度（像素）
+
+
+		ViewGroup.LayoutParams params =  rl_container.getLayoutParams();
+		params.width = width*8/10;
+		params.height = width*8/10;
+		// params.setMargins(dip2px(MainActivity.this, 1), 0, 0, 0); // 可以实现设置位置信息，如居左距离，其它类推
+		// params.leftMargin = dip2px(MainActivity.this, 1);
+        rl_container.setLayoutParams(params);
+
+
+        ViewGroup.LayoutParams params1 =  sw_bool_onoff.getLayoutParams();
+        params1.width = width*4/10;
+        params1.height = width*4/10;
+        // params.setMargins(dip2px(MainActivity.this, 1), 0, 0, 0); // 可以实现设置位置信息，如居左距离，其它类推
+        // params.leftMargin = dip2px(MainActivity.this, 1);
+        sw_bool_onoff.setLayoutParams(params1);
+
 	}
 
 	private void initEvent() {
@@ -167,9 +196,18 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		findViewById(R.id.sw_set).setOnClickListener(this);
 		findViewById(R.id.tr_scheduler).setOnClickListener(this);
 
+		sw_bool_filterTag.setOnClickListener(this);
 
-
-
+		sw_bool_filterTag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked){
+					sw_bool_filterTag.setText("开");
+				}else{
+					sw_bool_filterTag.setText("关");
+				}
+			}
+		});
 
 			}
 
@@ -246,11 +284,15 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 				startActivityForResult(it,100);
 				break;
 			case  R.id.tr_scheduler:
-				getSchedulerList();
+			//	getSchedulerList();
 			//	sendSchedulerCommand();
-//				Intent it1=	new Intent(GosDeviceControlActivity.this,SchedulerActivity.class);
+				Intent it1=	new Intent(GosDeviceControlActivity.this,SchedulerActivity.class);
+				it1.putExtra("GizWifiDevice",mDevice);
 //
-//				startActivityForResult(it1,101);
+				startActivityForResult(it1,101);
+				break;
+			case R.id.sd_data_filter:
+				sendCommand(KEY_FILTERTAG, sw_bool_filterTag.isChecked());
 				break;
 		default:
 			break;
@@ -413,7 +455,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		GizDeviceScheduler scheduler = new GizDeviceScheduler();
 		scheduler.setDate("2017-10-23");
 		scheduler.setTime("11:30");
-		scheduler.setRemark("开机任务");
+		scheduler.setRemark("task_on");
 		ConcurrentHashMap<String, Object> attrs = new ConcurrentHashMap<String, Object>();
 		attrs.put(KEY_ONOFF, true);
 		scheduler.setAttrs(attrs);
@@ -431,6 +473,22 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		GizDeviceSchedulerCenter.updateSchedulers(spf.getString("Uid",""), spf.getString("Token",""), mDevice);
 // 实现回调
 	}
+
+	GizDeviceSchedulerCenterListener mListener = new GizDeviceSchedulerCenterListener() {
+		@Override
+		public void didUpdateSchedulers(GizWifiErrorCode result, GizWifiDevice schedulerOwner, List<GizDeviceScheduler> schedulerList) {
+			if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
+				// 定时任务创建成功
+
+				Log.d("schedulerList",schedulerList.toString());
+			} else {
+				// 创建失败
+			}
+		}
+
+
+
+	};
 
 	private boolean isDeviceCanBeControlled() {
 		return mDevice.getNetStatus() == GizWifiDeviceNetStatus.GizDeviceControlled;

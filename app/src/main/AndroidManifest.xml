@@ -312,7 +312,8 @@
             android:label="@string/title_activity_more_setting" />
         <activity
             android:name=".ControlModule.SchedulerActivity"
-            android:label="@string/title_activity_scheduler"></activity>
+            android:label="@string/title_activity_scheduler" />
+        <activity android:name=".ControlModule.SchedulerSettingActivity"></activity>
     </application>
 
 </manifest>
