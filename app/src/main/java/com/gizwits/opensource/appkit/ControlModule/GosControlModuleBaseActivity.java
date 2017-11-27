@@ -1,24 +1,20 @@
 package com.gizwits.opensource.appkit.ControlModule;
 
-import java.text.DecimalFormat;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import android.content.Context;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
-import com.gizwits.gizwifisdk.api.GizDeviceScheduler;
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-import com.gizwits.gizwifisdk.listener.GizDeviceSchedulerCenterListener;
 import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 import com.gizwits.opensource.appkit.CommonModule.GosBaseActivity;
 import com.gizwits.opensource.appkit.utils.HexStrUtils;
 
-import android.content.Intent;
-import android.util.Log;
-import android.content.Context;
-import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
+import java.text.DecimalFormat;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GosControlModuleBaseActivity extends GosBaseActivity {
 
@@ -51,18 +47,18 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 	protected static final String KEY_VOC = "voc";
 
 
-
+	// 数据点"设置PM2.5"对应的标识名
     protected static final String KEY_PM25SET = "PM25Set";
-
+	// 数据点"VOC显示值"对应的标识名
     protected static final String KEY_VOCSHOW = "VOCShow";
-
+	// 数据点"clockclosetag"对应的标识名
     protected static final String KEY_CLOCKCLOSETAG = "clockclosetag";
-
+	// 数据点"clockopentag"对应的标识名
     protected static final String KEY_CLOCKOPENTAG = "clockopentag";
-
+	// 数据点"clockopentime"对应的标识名
     protected static final String KEY_CLOCKOPENTIME = "clockopentime";
-
-    protected static final String KEY_CLOCKCHOSETIME = "clockclosetime";
+	// 数据点"clockclosetime"对应的标识名
+    protected static final String KEY_CLOCKCLOSETIME = "clockclosetime";
 
 
 
@@ -219,6 +215,31 @@ public class GosControlModuleBaseActivity extends GosBaseActivity {
 				if (dataKey.equals(KEY_ALERTTEST)) {
 					data_alerttest = (Boolean) map.get(dataKey);
 				}
+
+				if (dataKey.equals(KEY_PM25SET)) {
+
+					data_PM25Set = (Integer) map.get(dataKey);
+				}
+				if (dataKey.equals(KEY_VOCSHOW)) {
+
+					data_VOCShow = (Integer) map.get(dataKey);
+				}
+				if (dataKey.equals(KEY_CLOCKOPENTIME)) {
+
+					data_clockopentime = (byte[]) map.get(dataKey);
+				}
+				if (dataKey.equals(KEY_CLOCKCLOSETIME)) {
+
+					data_clockclosetime = (byte[]) map.get(dataKey);
+				}
+
+				if (dataKey.equals(KEY_CLOCKCLOSETAG)) {
+					data_clockclosetag = (Boolean) map.get(dataKey);
+				}
+				if (dataKey.equals(KEY_CLOCKOPENTAG)) {
+					data_clockopentag = (Boolean) map.get(dataKey);
+				}
+
 			}
 		}
 

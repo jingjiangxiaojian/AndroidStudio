@@ -280,13 +280,16 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 			case R.id.sw_set:
 				Intent it=	new Intent(GosDeviceControlActivity.this,MoreSettingActivity.class);
 				it.putExtra("voc",data_voc);
-				it.putExtra("pm",data_PM25);
+				it.putExtra("pm",data_PM25Set);
 				startActivityForResult(it,100);
 				break;
 			case  R.id.tr_scheduler:
 			//	getSchedulerList();
 			//	sendSchedulerCommand();
 				Intent it1=	new Intent(GosDeviceControlActivity.this,SchedulerActivity.class);
+				it1.putExtra("GizWifiDevice",mDevice);
+
+
 				it1.putExtra("GizWifiDevice",mDevice);
 //
 				startActivityForResult(it1,101);
@@ -304,12 +307,12 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode==100&&resultCode==RESULT_OK){
 			int vocprogress=data.getIntExtra("voc",0);
-			tv_data_voc.setText(formatValue((vocprogress + VOC_OFFSET) * VOC_RATIO + VOC_ADDITION, 1));
+			//tv_data_voc.setText(formatValue((vocprogress + VOC_OFFSET) * VOC_RATIO + VOC_ADDITION, 1));
 			sendCommand(KEY_VOC, (vocprogress + VOC_OFFSET ) * VOC_RATIO + VOC_ADDITION);
 
 			int pmprogress=data.getIntExtra("pm",0);
-			tv_data_PM25.setText(formatValue((pmprogress + PM_OFFSET) * PM_RATIO + PM_ADDITION, 1));
-			sendCommand(KEY_PM25, (pmprogress + PM_OFFSET ) * PM_RATIO + PM_ADDITION);
+			//tv_data_PM25.setText(formatValue((pmprogress + PM_OFFSET) * PM_RATIO + PM_ADDITION, 1));
+			sendCommand(KEY_PM25SET, (pmprogress + PMSET_OFFSET ) * PMSET_RATIO + PMSET_ADDITION);
 		}
 
 
@@ -389,7 +392,7 @@ public class GosDeviceControlActivity extends GosControlModuleBaseActivity
 		tv_data_temperature.setText(data_temperature+"");
 		tv_data_humidity.setText(data_humidity+"");
 		tv_data_PM25.setText(data_PM25+"");
-		tv_data_voc.setText(data_voc+"");
+		tv_data_voc.setText(data_VOCShow+"");
 
 
 	}

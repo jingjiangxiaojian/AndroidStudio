@@ -330,14 +330,13 @@
                 android:text="童锁"
                 android:textColor="@drawable/text_selector" />
 
-            <CheckBox
+            <TextView
                 android:id="@+id/sw_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/sw_bool_lock"
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/sw_bool_lock"
-                android:button="@null"
                 android:drawableTop="@drawable/btn_set"
                 android:gravity="center_horizontal"
                 android:text="设置"
